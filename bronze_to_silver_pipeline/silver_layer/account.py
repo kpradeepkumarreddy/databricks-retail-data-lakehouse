@@ -28,20 +28,32 @@ def silver_account():
             # Account details - with standardizations
             F.trim(F.initcap(F.col("Name"))).alias("customer_name"),
             F.trim(F.col("Type")).alias("type"),
+            F.col("ParentId").alias("parent_id"),
             
             # Billing address - standardized
+            F.trim(F.initcap(F.col("BillingStreet"))).alias("billing_street"),
             F.trim(F.initcap(F.col("BillingCity"))).alias("billing_city"),
             F.trim(F.initcap(F.col("BillingState"))).alias("billing_state"),
+            F.trim(F.col("BillingPostalCode")).alias("billing_postal_code"),
             F.trim(F.upper(F.col("BillingCountry"))).alias("billing_country"),
             F.trim(F.upper(F.col("BillingStateCode"))).alias("billing_state_code"),
             F.trim(F.upper(F.col("BillingCountryCode"))).alias("billing_country_code"),
+            
+            # Shipping address - standardized
+            F.trim(F.initcap(F.col("ShippingStreet"))).alias("shipping_street"),
+            F.trim(F.initcap(F.col("ShippingCity"))).alias("shipping_city"),
+            F.trim(F.initcap(F.col("ShippingState"))).alias("shipping_state"),
+            F.trim(F.col("ShippingPostalCode")).alias("shipping_postal_code"),
+            F.trim(F.upper(F.col("ShippingCountry"))).alias("shipping_country"),
             
             # Contact information - standardized
             F.regexp_replace(F.trim(F.col("Phone")), r"[^0-9+]", "").alias("phone"),
             F.trim(F.lower(F.col("Website"))).alias("website"),
             
             # Business details
-            F.trim(F.col("Industry")).alias("industry"),
+            F.coalesce(F.trim(F.col("Industry")), F.lit("UNKNOWN")).alias("industry"),
+            F.col("AnnualRevenue").alias("annual_revenue"),
+            F.col("NumberOfEmployees").alias("number_of_employees"),
             F.trim(F.col("Description")).alias("description"),
             
             # Ownership and tracking
@@ -60,6 +72,9 @@ def silver_account():
             
             # CDC tracking columns
             F.col("__START_AT").alias("start_at"),
-            F.col("__END_AT").alias("end_at")
+            F.col("__END_AT").alias("end_at"),
+            
+            # Compute is_active: True when __END_AT is null (active record), False otherwise
+            F.when(F.col("__END_AT").isNull(), True).otherwise(False).alias("is_active")
         )
     )
