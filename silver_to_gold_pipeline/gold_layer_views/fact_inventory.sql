@@ -1,4 +1,4 @@
-CREATE OR REPLACE  MATERIALIZED VIEW retail_q.gold.fact_inventory AS
+CREATE OR REPLACE VIEW retail_q.gold.fact_inventory AS
 SELECT
     inventory_id,
     product_id,

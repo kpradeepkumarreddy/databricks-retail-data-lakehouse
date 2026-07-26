@@ -1,8 +1,8 @@
-CREATE OR REPLACE MATERIALIZED VIEW retail_q.gold.calendar AS
+CREATE OR REPLACE TABLE retail_q.gold.calendar AS
     WITH date_range AS (
         SELECT explode(sequence(
-            to_date("2025-01-01"),
-            to_date("2028-12-31"),
+            to_date('2025-01-01'),
+            to_date('2028-12-31'),
             interval 1 day
         )) AS date
     )

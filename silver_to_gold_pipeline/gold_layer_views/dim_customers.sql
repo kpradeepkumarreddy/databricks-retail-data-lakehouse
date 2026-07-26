@@ -1,4 +1,4 @@
-CREATE OR REPLACE MATERIALIZED VIEW retail_q.gold.dim_customer AS
+CREATE OR REPLACE VIEW retail_q.gold.dim_customer AS
 SELECT
     id AS customer_id,
     customer_name,
