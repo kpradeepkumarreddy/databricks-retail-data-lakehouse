@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE retail_q.gold.calendar AS
+CREATE OR REPLACE TABLE retail_q.gold.dim_calendar AS
     WITH date_range AS (
         SELECT explode(sequence(
             to_date('2025-01-01'),
