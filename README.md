@@ -3,3 +3,6 @@ End-to-end retail data lakehouse built on Databricks using PySpark, Delta Lake, 
 
 <img width="1672" height="941" alt="retailq_databricks_proj_architecture" src="https://github.com/user-attachments/assets/c6247f45-9a7b-494c-806c-f03ccec3b43f" />
 
+
+<img width="2938" height="525" alt="image" src="https://github.com/user-attachments/assets/e25049a8-c42c-4764-9e72-d3d03b3bc61a" />
+
